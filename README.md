@@ -1,5 +1,5 @@
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.svg)
 
 # ocp_disconnected
 

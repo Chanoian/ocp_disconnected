@@ -1,0 +1,71 @@
+### oc-mirror --config imageSetConfig.yaml file://./ocp-virt-4-14
+
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+
+storageConfig:
+  local:
+    path: ./
+
+mirror:
+  platform:
+    channels:
+    - name: stable-4.14
+      type: ocp
+      minVersion: 4.14.16
+      maxVersion: 4.14.18
+    graph: true
+
+  operators:
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.14
+    packages:
+    - name: kubevirt-hyperconverged
+      channels:
+      - name: stable
+        minVersion: 4.14.4
+    - name: mtv-operator
+      channels:
+        - name: release-v2.5
+    - name: lvms-operator
+      channels:
+        - name: stable-4.14
+    - name: kubernetes-nmstate-operator
+      channels:
+      - name: stable
+
+    - name: web-terminal
+      channels:
+      - name: fast
+
+    - name: cincinnati-operator
+      channels:
+        - name: v1
+
+### OpenShift Data Foundation - ODF is similart to vSAN & Nutanix
+#    - name: odf-operator
+#      channels:
+#      - name: stable-4.14
+#    - name: ocs-operator
+#      channels:
+#      - name: stable-4.14
+#    - name: mcg-operator
+#      channels:
+#      - name: stable-4.14
+#    - name: odf-csi-addons-operator
+#      channels:
+#      - name: stable-4.14
+#    - name: local-storage-operator
+#      channels:
+#      - name: stable
+### end ODF
+
+
+  additionalImages:
+  - name: registry.redhat.io/rhel8/support-tools
+  - name: registry.redhat.io/openshift4/ose-tools-rhel8
+  - name: registry.redhat.io/rhel8/rhel-guest-image
+  - name: registry.redhat.io/rhel9/rhel-guest-image
+  - name: quay.io/jcall/vddk:8.0.2
+
+  helm: {}
+

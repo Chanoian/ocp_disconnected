@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+metadata:
+  name: disco
+baseDomain: lab
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  replicas: 0
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  replicas: 1
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.0.0.0/16
+  networkType: OVNKubernetes
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  aws:
+    region: us-east-2
+    subnets:
+    - subnet-0b080605a00779c14
+publish: Internal
+additionalTrustBundlePolicy: Always
+sshKey: <ssh public key> 
+pullSecret: <pull secret> 
+imageContentSources:
+  - mirrors:
+    - ip-10-0-56-209.us-east-2.compute.internal:8443/rhel8
+    source: registry.redhat.io/rhel8
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  -----END CERTIFICATE-----
